@@ -10,7 +10,11 @@ export function SearchResults() {
 
   return (
     <div className="usersList">
-      {users && users.map((user: User) => <UserCard key={user.id} {...user} />)}
+      {users.length !== 0 ? (
+        users.map((user: User) => <UserCard key={user.id} {...user} />)
+      ) : (
+        <div>No users found</div>
+      )}
     </div>
   )
 }

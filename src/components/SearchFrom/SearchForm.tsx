@@ -1,19 +1,14 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import './styles.css'
-import { SearchContext } from '../SearchResults/SearchContext'
-import { User } from '../../types'
 
-export function SearchForm() {
-  const { users } = useContext(SearchContext)
-  const [search, setSearch] = useState('')
+export function SearchForm(props: { onSearch: (keyword: string) => void }) {
+  const [keyword, setKeyword] = useState('')
 
-  const handleSearch = (event: any) => {
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-
-    setSearch(event.target.value)
-    console.log(event.target.value)
-
-    setSearch('')
+    props.onSearch(keyword.trim())
+    console.log(keyword)
+    setKeyword('')
   }
 
   return (
@@ -21,8 +16,8 @@ export function SearchForm() {
       <form onSubmit={handleSearch}>
         <input
           type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
         />
       </form>
     </div>
